@@ -5,9 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         funcaoValidadora: function(dado) {
-          if (dado.length < 3) {
-            throw new Error ('O campo nome deve ter mais de 3 caracteres')
-          }
+          if (dado.length < 3) throw new Error('o campo nome deve ter mais de 3 caracteres')
         }
       }
     },
@@ -17,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: {
           args: true,
-          msg: 'dado do tipo email invalidos'
+          msg: 'dado do tipo e-mail inválido'
         }
       }
     },
@@ -25,11 +23,10 @@ module.exports = (sequelize, DataTypes) => {
   }, { 
     paranoid: true,
     defaultScope: {
-      where: { ativo: true}
-    },
+      where: { ativo: true }
+    },  
     scopes: {
-      todos: {where: {}},
-      //etc: { constraints }
+      todos: { where: {} },
     }
   })
   Pessoas.associate = function(models) {
@@ -41,7 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       scope: { status: 'confirmado' },
       as: 'aulasMatriculadas'
     })
-
   }
   return Pessoas
 }
